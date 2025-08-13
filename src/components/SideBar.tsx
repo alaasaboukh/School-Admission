@@ -5,6 +5,7 @@ import {
     Activity,
     Calendar,
     Home,
+    LogIn,
     MessageCircle,
     Pizza,
     UserRound,
@@ -23,6 +24,7 @@ const navItems = [
     { id: 6, label: "Food", icon: <Pizza />, path: "/food" },
     { id: 8, label: "Chat", icon: <MessageCircle />, path: "/chat" },
     { id: 9, label: "Lastest Activity", icon: <Activity />, path: "/lastestactivity" },
+    { id: 10, label: "Login", icon: <LogIn />, path: "/login" },
 ];
 
 const Sidebar = () => {

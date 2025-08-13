@@ -283,8 +283,9 @@ export default function ChatPage() {
                 </div>
             </>
         ) : (
-            <div className="flex-1 flex items-center justify-center text-[var(--color-accent1)] text-sm p-4 text-center">
-                Select a conversation to start chatting.
+            <div className="flex-1 flex flex-col gap-3 items-center justify-center text-[var(--color-accent1)] text-sm p-4 text-center">
+                <span>Select a conversation to start chatting.</span>
+                <span>You must log in to start chatting.</span>
             </div>
         )}
     </div>
