@@ -26,11 +26,12 @@ const ResentStudents = () => {
             {loading ? (
                 <div className="flex items-center justify-center flex-col w-full">
                     <div className="loading"></div>
-                    <p className="text-gray-500 text-xs mt-2">loading Students</p>
+                    <p className="text-[var(--color-accent2)] text-xs mt-2">
+                        loading Students
+                    </p>
                 </div>
             ) : (
                 <>
-                
                     {recentStudents.map((recent) => (
                         <div
                             key={recent.id}
@@ -54,15 +55,19 @@ const ResentStudents = () => {
                                     </p>
                                 </div>
                             </div>
-                            <Link href={`/students/${recent.id}`} className="border border-gray-300  p-2 rounded-full text-[var(--color-accent1)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-500 cursor-pointer"
-                    aria-label={`Send email to ${recent.name}`}
->
-                        
-                        <Info size={18} />
-                    </Link>
+                            <Link
+                                href={`/students/${recent.id}`}
+                                className="border border-gray-300  p-2 rounded-full text-[var(--color-accent1)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-500 cursor-pointer"
+                                aria-label={`Send email to ${recent.name}`}
+                            >
+                                <Info size={18} />
+                            </Link>
                         </div>
                     ))}
-                    <Link href="/students" className="block text-center bg-[var(--color-secondary)] shadow-xs hover:bg-[var(--color-accent4)] transition-all duration-500 w-full py-3 rounded-3xl text-[var(--color-accent2)] font-semibold mt-3 cursor-pointer">
+                    <Link
+                        href="/students"
+                        className="block text-center bg-[var(--color-secondary)] shadow-xs hover:bg-[var(--color-accent4)] transition-all duration-500 w-full py-3 rounded-3xl text-[var(--color-accent2)] font-semibold mt-3 cursor-pointer"
+                    >
                         View More
                     </Link>
                 </>

@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import Image from "next/image";
-import TopComponent from "@/components/TopComponent";
+import TopComponent from "@/components/Nested/TopComponent";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Teacher } from "@/redux/teatcherSlice";
 
@@ -27,14 +27,14 @@ const TeatcherDetails = () => {
 
     if (!teacher)
         return (
-            <div className="flex items-center justify-center flex-col h-screen w-full px-4">
+            <div className="flex items-center justify-center flex-col h-screen w-full">
                 <div className="loading"></div>
-                <p className="text-gray-500 text-sm mt-2">loading Teacher Details</p>
+                <p className="text-[var(--color-accent2)] text-sm mt-2">loading Teacher Details</p>
             </div>
         );
 
     return (
-        <div className="bg-[var(--color-secondary)] p-4 sm:p-6 w-full ">
+        <div className="bg-[var(--color-secondary)] p-4 sm:p-6 w-full min-h-screen">
             <TopComponent text={"Teacher Details"} />
 
             {/* الجزء العلوي */}

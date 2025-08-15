@@ -4,27 +4,14 @@ import { useParams } from "next/navigation"; // أو useRouter في Pages Router
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import Image from "next/image";
-import TopComponent from "@/components/TopComponent";
+import TopComponent from "@/components/Nested/TopComponent";
 import { BarChart2, Star, TrendingUp } from "lucide-react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-
-interface Food {
-    id: string;
-    name?: string;
-    description?: string;
-    imageUrl?: string;
-    mealType?: string;
-    rate?: number;
-    total?: number;
-    interest?: number;
-    percent?: number;
-    ingredient?: string;
-    nurtrition?: string;
-}
+import { Foods } from "@/redux/foodSlice";
 
 const FoodDetails = () => {
     const { id } = useParams();
-    const [food, setFood] = useState<Food| null>(null);
+    const [food, setFood] = useState<Foods| null>(null);
 
     useEffect(() => {
         const fetchFood = async () => {
@@ -32,24 +19,23 @@ const FoodDetails = () => {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                setFood({ id: docSnap.id, ...docSnap.data() });
+                setFood({ id: docSnap.id, ...docSnap.data() as Foods });
             }
         };
 
         if (id) fetchFood();
     }, [id]);
-    console.log("params:", useParams());
 
     if (!food)
         return (
-            <div className="flex items-center justify-center flex-col h-screen">
+            <div className="flex items-center justify-center flex-col h-screen w-full">
                 <div className="loading"></div>
-                <p className="text-gray-500 text-sm mt-2">loading Food Details</p>
+                <p className="text-[var(--color-accent2)] text-sm mt-2">loading Food Details</p>
             </div>
         );
 
     return (
-        <div className="bg-[var(--color-secondary)] p-6 w-full">
+        <div className="bg-[var(--color-secondary)] p-6 w-full min-h-screen">
             <TopComponent text={"Food Details"} />
             <div className="bg-[var(--bg-background)] p-5 rounded-b-lg">
                 <div className="flex items-start gap-8 max-md:flex-col">

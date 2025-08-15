@@ -50,7 +50,7 @@ export default function ChatSidebar() {
                     id: docSnap.id,
                     members: data.members || [],
                     lastMessage: data.lastMessage || "",
-                    updatedAt: data.updatedAt?.toDate?.() ?? null
+                    updatedAt: data.updatedAt?.toDate?.() ?? null,
                 };
             });
             setChats(chatList);
@@ -67,7 +67,7 @@ export default function ChatSidebar() {
                     const data = docSnap.data() as DocumentData;
                     return {
                         uid: data.uid,
-                        name: data.name || ""
+                        name: data.name || "",
                     };
                 })
                 .filter((u) => u.uid !== currentUser?.uid);
@@ -109,37 +109,40 @@ export default function ChatSidebar() {
             <div className="space-y-3">
                 {users.length === 0 ? (
                     <div className="flex items-center justify-center flex-col w-full">
-                    <div className="loading"></div>
-                    <p className="text-gray-500 text-xs mt-2">loading Messages</p>
-                </div>
+                        <div className="loading"></div>
+                        <p className="text-[var(--color-accent2)] text-xs mt-2">
+                            loading Messages
+                        </p>
+                    </div>
                 ) : (
                     <>
-                    {users.slice(0, 5).map((u) => (
-                    <div
-                        key={u.uid}
-                        onClick={() => createOrOpenChat(u.uid)}
-                        className="flex items-center p-2 rounded-lg hover:bg-[var(--color-secondary)] cursor-pointer"
-                    >
-                        <div className="w-12 h-12 bg-purple-300 rounded-full flex items-center justify-center text-white font-bold"></div>
-                        <div className="ml-3">
-                            <div className="text-[var(--color-accent2)] font-semibold text-sm">
-                                {u.name}
+                        {users.slice(0, 5).map((u) => (
+                            <div
+                                key={u.uid}
+                                onClick={() => createOrOpenChat(u.uid)}
+                                className="flex items-center p-2 rounded-lg hover:bg-[var(--color-secondary)] cursor-pointer"
+                            >
+                                <div className="w-12 h-12 bg-purple-300 rounded-full flex items-center justify-center text-white font-bold"></div>
+                                <div className="ml-3">
+                                    <div className="text-[var(--color-accent2)] font-semibold text-sm">
+                                        {u.name}
+                                    </div>
+                                    <div className="text-[var(--color-accent1)] text-xs">
+                                        {chats.find((c) => c.members.includes(u.uid))
+                                            ?.lastMessage || "No messages yet"}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="text-[var(--color-accent1)] text-xs">
-                                {chats.find((c) => c.members.includes(u.uid))?.lastMessage ||
-                                    "No messages yet"}
-                            </div>
-                        </div>
-                    </div>
-                ))}
-                <Link href="/chat" className="block text-center bg-[var(--color-secondary)] shadow-xs hover:bg-[var(--color-accent4)] transition-all duration-500 w-full py-3 rounded-3xl text-[var(--color-accent2)] font-semibold mt-3 cursor-pointer">
-                        View More
-                    </Link>
+                        ))}
+                        <Link
+                            href="/chat"
+                            className="block text-center bg-[var(--color-secondary)] shadow-xs hover:bg-[var(--color-accent4)] transition-all duration-500 w-full py-3 rounded-3xl text-[var(--color-accent2)] font-semibold mt-3 cursor-pointer"
+                        >
+                            View More
+                        </Link>
                     </>
                 )}
             </div>
-
-            
         </div>
     );
 }

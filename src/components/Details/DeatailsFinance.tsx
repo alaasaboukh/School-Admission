@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
@@ -6,12 +6,11 @@ import { UserRound, Users, Wallet } from "lucide-react";
 import React from "react";
 
 const DeatailsFinance = () => {
-    const students = useAppSelector((state: RootState) => state.student.students)
-    const teachers = useAppSelector((state: RootState) => state.teacher.teachers)
-    console.log(teachers.length)
+    const students = useAppSelector((state: RootState) => state.student.students);
+    const teachers = useAppSelector((state: RootState) => state.teacher.teachers);
+    console.log(teachers.length);
     return (
         <div className="flex items-center justify-between gap-5 mb-6 flex-wrap">
-            {/* Total Students */}
             <div className="bg-[var(--bg-background)] p-6 rounded-lg flex items-center gap-5 flex-1 ">
                 <span className="bg-[var(--color-primary)] rounded-full p-3 text-white">
                     <Users />
@@ -30,7 +29,6 @@ const DeatailsFinance = () => {
                 </div>
             </div>
 
-            {/* Total Teachers */}
             <div className="bg-[var(--bg-background)] p-6 rounded-lg flex items-center gap-5 flex-1">
                 <span className="bg-[var(--color-orange)] rounded-full p-3 text-white">
                     <UserRound />
@@ -49,7 +47,6 @@ const DeatailsFinance = () => {
                 </div>
             </div>
 
-            {/* School Balance */}
             <div className="bg-[var(--bg-background)] p-6 rounded-lg flex items-center gap-5 max-sm:flex-col flex-2 justify-between ">
                 <div className="flex items-center gap-5 flex-[2]">
                     <span className="bg-[var(--color-yellow)] rounded-full p-3 text-white">

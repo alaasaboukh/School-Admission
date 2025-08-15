@@ -7,12 +7,12 @@ import { useParams } from "next/navigation"; // أو useRouter في Pages Router
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
 import Image from "next/image";
-import TopComponent from "@/components/TopComponent";
+import TopComponent from "@/components/Nested/TopComponent";
 import { Mail, MapPin, Phone, TrendingUp, User2 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { fetchStudents, Student } from "@/redux/studentSlice";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/Nested/Pagination";
 
 
 const StudentDetails = () => {
@@ -54,21 +54,21 @@ const StudentDetails = () => {
 
     if (!student)
         return (
-            <div className="flex items-center justify-center flex-col h-screen w-[950px]">
+            <div className="flex items-center justify-center flex-col h-screen w-full">
                 <div className="loading"></div>
-                <p className="text-gray-500 text-sm mt-2">loading Student Details</p>
+                <p className="text-[var(--color-accent2)] text-sm mt-2">loading Student Details</p>
             </div>
         );
 
     return (
-        <div className="bg-[var(--color-secondary)] p-6 sm:p-6 w-full mx-auto">
+        <div className="bg-[var(--color-secondary)] p-6 sm:p-6 w-full mx-auto min-h-screen">
             <TopComponent text={"Student Details"} />
 
                 <div className="bg-[var(--color-primary)] relative px-7 py-12 sm:px-7 sm:py-14 rounded-t-lg">
                     <div className="bg-[var(--color-yellow)] w-50 h-45 rounded-lg absolute right-10 max-md:right-5 top-5 z-10 max-md:w-30 max-md:h-30"></div>
                     <div className="bg-[var(--color-orange)] w-50 h-45 rounded-lg absolute right-37 max-md:right-28 top-14 z-5 max-md:w-30 max-md:h-30"></div>
 
-                    <div className="border-4 border-[var(--color-accent4)] w-30 h-30  max-md:w-24 max-md:h-24 rounded-full absolute top-8 max-md:top-10 left-7 z-50 bg-[var(--color-secondary)]">
+                    <div className="border-4 border-[var(--color-accent4)] w-30 h-30 max-md:w-24 max-md:h-24 rounded-full absolute top-8 max-md:top-10 left-7 z-50 bg-[var(--color-secondary)]">
                         {student.imageUrl && (
                             <Image
                                 src={student.imageUrl}

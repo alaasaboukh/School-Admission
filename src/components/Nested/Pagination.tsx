@@ -1,4 +1,3 @@
-
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type PaginationProps = {
@@ -14,7 +13,6 @@ const Pagination = ({
     totalPage,
     data,
 }: PaginationProps) => {
-
     const getPageNumbers = () => {
         if (typeof window !== "undefined" && window.innerWidth < 640) {
             const start = Math.max(1, currentPage - 1);

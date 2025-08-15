@@ -1,13 +1,11 @@
 "use client";
 
-import CreateTeatcherForm from "@/components/CreateTeatcherForm";
-import TeachersList from "@/components/TeacherList";
-import TopComponent from "@/components/TopComponent";
+import TeachersList from "@/components/Teachers/TeacherList";
+import TopComponent from "@/components/Nested/TopComponent";
 
 export default function TeachersListPage() {
     return (
-        <div className="bg-[var(--color-secondary)] p-6 w-full">
-            {/* <CreateTeatcherForm /> */}
+        <div className="bg-[var(--color-secondary)] p-6 w-full min-h-screen">
             <TopComponent text={"All Teachers"} />
             <TeachersList />
         </div>

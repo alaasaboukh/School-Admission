@@ -1,11 +1,11 @@
 // src/app/layout.tsx
-"use client"
-import SideBar from "@/components/SideBar";
+"use client";
+import SideBar from "@/components/Nested/SideBar";
 import "./globals.css";
 import { store } from "@/redux/store";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 import { ThemeProvider } from "next-themes";
-
+import AuthListener from "@/components/Nested/AuthListener";
 
 export default function RootLayout({
   children,
@@ -14,15 +14,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body >
-        <Provider store = {store}>
+      <body>
+        <Provider store={store}>
           <ThemeProvider attribute="data-theme" defaultTheme="light">
+            <AuthListener />
             <div className="flex">
-          <SideBar />
-          {children}
-          </div>
+              <SideBar />
+              {children}
+            </div>
           </ThemeProvider>
-          
         </Provider>
       </body>
     </html>

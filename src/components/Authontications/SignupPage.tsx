@@ -40,8 +40,8 @@ const SignupPage = () => {
         }
     };
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[var(--color-secondary)] w-full">
-            <div className="w-full max-w-md bg-[var(--bg-background)] p-8 rounded-xl shadow-sm">
+        <div className=" relative w-full">
+            <div className="w-full max-w-md bg-[var(--bg-background)] p-5 rounded-xl shadow-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-10">
                 <h2 className="text-3xl font-bold mb-6 text-center text-[var(--color-primary)]">
                     Create an acount
                 </h2>
@@ -107,7 +107,10 @@ const SignupPage = () => {
 
                 <div className="mt-4 text-center text-sm text-[var(--color-accent2)]">
                     You already have an account?{" "}
-                    <Link href="/login" className="text-[var(--color-primary)] hover:underline">
+                    <Link
+                        href="/login"
+                        className="text-[var(--color-primary)] hover:underline"
+                    >
                         Login
                     </Link>
                 </div>

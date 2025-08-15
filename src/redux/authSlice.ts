@@ -1,4 +1,3 @@
-// store/authSlice.ts
 import { doc, setDoc } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
 import { db } from "@/app/firebase";
@@ -7,9 +6,6 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    sendPasswordResetEmail,
-    updateEmail,
-    updatePassword,
     onAuthStateChanged,
 } from "firebase/auth";
 import auth from "@/app/firebase";
@@ -84,53 +80,6 @@ export const login = createAsyncThunk<
 export const logout = createAsyncThunk("auth/logout", async () => {
     await signOut(auth);
     return null;
-});
-
-export const resetPassword = createAsyncThunk<
-    void,
-    { email: string },
-    { rejectValue: string }
->("auth/resetPassword", async ({ email }, thunkAPI) => {
-    try {
-        await sendPasswordResetEmail(auth, email);
-    } catch (error) {
-        if (error instanceof Error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-        return thunkAPI.rejectWithValue("Unknown error");
-    }
-});
-
-export const updateEmailThunk = createAsyncThunk<
-    void,
-    { email: string },
-    { rejectValue: string }
->("auth/updateEmail", async ({ email }, thunkAPI) => {
-    try {
-        if (!auth.currentUser) throw new Error("No user logged in");
-        await updateEmail(auth.currentUser, email);
-    } catch (error) {
-        if (error instanceof Error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-        return thunkAPI.rejectWithValue("Unknown error");
-    }
-});
-
-export const updatePasswordThunk = createAsyncThunk<
-    void,
-    { password: string },
-    { rejectValue: string }
->("auth/updatePassword", async ({ password }, thunkAPI) => {
-    try {
-        if (!auth.currentUser) throw new Error("No user logged in");
-        await updatePassword(auth.currentUser, password);
-    } catch (error) {
-        if (error instanceof Error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-        return thunkAPI.rejectWithValue("Unknown error");
-    }
 });
 
 export const listenToAuthChanges = createAsyncThunk<SerializableUser | null>(
@@ -223,15 +172,6 @@ const authSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.currentUser = null;
-            })
-            .addCase(resetPassword.rejected, (state, action) => {
-                state.error = action.payload ?? "Reset password failed";
-            })
-            .addCase(updateEmailThunk.rejected, (state, action) => {
-                state.error = action.payload ?? "Update email failed";
-            })
-            .addCase(updatePasswordThunk.rejected, (state, action) => {
-                state.error = action.payload ?? "Update password failed";
             })
             .addCase(listenToAuthChanges.fulfilled, (state, action) => {
                 state.currentUser = action.payload;

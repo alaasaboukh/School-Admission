@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { useAppDispatch } from "@/redux/hooks";
-import { addStudent } from "@/redux/studentSlice"; // تأكد إنك مثبت react-hot-toast
-// import { getDownloadURL, ref, uploadBytes } from "firebase/storage"; // لو هترفع على firebase
-// import { storage } from "@/firebase"; // لو هترفع على firebase
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { addStudent } from "@/redux/studentSlice";
+import { RootState } from "@/redux/store";
 
 const initialFormData = {
   name: "",
@@ -23,6 +22,10 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
+  const currentUser = useAppSelector(
+    (state: RootState) => state.auth.currentUser
+  );
+  const adminEmail = "alaasaboukh1@gmail.com";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,12 +38,10 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
 
     try {
       let imageUrl = "";
-
-      // ✅ 1. ارفع الصورة على Cloudinary لو موجودة
       if (formData.image) {
         const formDataCloud = new FormData();
         formDataCloud.append("file", formData.image);
-        formDataCloud.append("upload_preset", "unsigned_students"); // لازم preset يكون unsigned
+        formDataCloud.append("upload_preset", "unsigned_students");
 
         const response = await fetch(
           "https://api.cloudinary.com/v1_1/dqdwjumwk/image/upload",
@@ -54,7 +55,6 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         imageUrl = data.secure_url;
       }
 
-      // ✅ 2. حضر الداتا بدون الصورة
       const { ...restData } = formData;
       const newStudent = {
         ...restData,
@@ -62,7 +62,6 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         imageUrl,
       };
 
-      // ✅ 3. ضيف الطالب
       await dispatch(addStudent(newStudent)).unwrap();
 
       setFormData(initialFormData);
@@ -73,10 +72,14 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
     }
   };
 
+  if (currentUser?.email !== adminEmail) {
+    return <div>The page is available to admins only.</div>;
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow-md w-full max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4"
+      className="bg-[var(--bg-background)] p-6 rounded-xl shadow-md w-full max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4"
     >
       <input
         name="name"
@@ -84,6 +87,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         value={formData.name}
         onChange={handleChange}
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="class"
@@ -91,6 +95,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         value={formData.class}
         onChange={handleChange}
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="grade"
@@ -98,6 +103,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         value={formData.grade}
         onChange={handleChange}
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="price"
@@ -106,6 +112,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         onChange={handleChange}
         type="number"
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="date"
@@ -114,6 +121,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         onChange={handleChange}
         type="date"
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="parentName"
@@ -121,6 +129,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         value={formData.parentName}
         onChange={handleChange}
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="city"
@@ -128,12 +137,14 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         value={formData.city}
         onChange={handleChange}
         required
+        className="border border-gray-300 p-2 rounded"
       />
       <input
         name="phone"
         placeholder="Phone Number"
         value={formData.phone}
         onChange={handleChange}
+        className="border border-gray-300 p-2 rounded"
         required
       />
       <input
@@ -142,6 +153,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         value={formData.email}
         onChange={handleChange}
         type="email"
+        className="border border-gray-300 p-2 rounded"
         required
       />
       <input
@@ -149,6 +161,7 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
         placeholder="Fee Status"
         value={formData.feeStatus}
         onChange={handleChange}
+        className="border border-gray-300 p-2 rounded"
         required
       />
       <input
@@ -160,11 +173,12 @@ const CreateStudentForm = ({ }: { onClose?: () => void }) => {
             image: e.target.files ? e.target.files[0] : null,
           }))
         }
+        className="border border-gray-300 p-2 rounded"
       />
       <button
         type="submit"
         disabled={loading}
-        className="col-span-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        className="col-span-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 cursor-pointer"
       >
         {loading ? "Adding..." : "Add Student"}
       </button>

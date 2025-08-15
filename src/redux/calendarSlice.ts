@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type CalendarEvent = {
+export type CalendarEvent = {
     id: string;
     date: string;
     label: string;
@@ -40,13 +40,17 @@ const calendarSlice = createSlice({
                 state.events = JSON.parse(stored);
             }
         },
-        DeleteEvent(state,action:PayloadAction<string>){
-          state.events = state.events.filter((f)=> f.id !== action.payload)
-          localStorage.setItem("calendarEvents", JSON.stringify(state.events));
-        }
+        DeleteEvent(state, action: PayloadAction<string>) {
+            state.events = state.events.filter((f) => f.id !== action.payload);
+            localStorage.setItem("calendarEvents", JSON.stringify(state.events));
+        },
     },
 });
 
-export const { setEvents, addOrUpdateEvent, loadEventsFromStorage, DeleteEvent } =
-    calendarSlice.actions;
+export const {
+    setEvents,
+    addOrUpdateEvent,
+    loadEventsFromStorage,
+    DeleteEvent,
+} = calendarSlice.actions;
 export default calendarSlice.reducer;

@@ -18,21 +18,20 @@ type ChartData = {
 };
 
 const lineData: ChartData[] = [
-    { name: "Jan", thisWeek: 10, lastWeek: 5 },
+    { name: "Jan", thisWeek: 10, lastWeek: 8 },
     { name: "Feb", thisWeek: 30, lastWeek: 20 },
     { name: "Mar", thisWeek: 80, lastWeek: 45 },
-    { name: "Apr", thisWeek: 10, lastWeek: 5 },
-    { name: "May", thisWeek: 0, lastWeek: 0 },
+    { name: "Apr", thisWeek: 25, lastWeek: 20 },
+    { name: "May", thisWeek: 10, lastWeek: 10 },
     { name: "Jun", thisWeek: 50, lastWeek: 40 },
-    { name: "Jul", thisWeek: 60, lastWeek: 60 },
+    { name: "Jul", thisWeek: 60, lastWeek: 70 },
     { name: "Aug", thisWeek: 20, lastWeek: 25 },
     { name: "Sep", thisWeek: 40, lastWeek: 35 },
     { name: "Oct", thisWeek: 90, lastWeek: 80 },
-    { name: "Nov", thisWeek: 70, lastWeek: 90 },
+    { name: "Nov", thisWeek: 75, lastWeek: 90 },
     { name: "Dec", thisWeek: 50, lastWeek: 40 },
 ];
 
-// نوع مخصص للـ Tooltip
 type CustomTooltipProps = {
     active?: boolean;
     label?: string;
@@ -47,7 +46,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     if (!active || !payload?.length) return null;
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-lg border border-gray-200 text-sm">
+        <div className="bg-[var(--bg-background)] p-4 rounded-xl shadow-lg border border-gray-200 text-sm">
             <p className="font-bold text-[var(--color-accent2)] mb-2">{label}</p>
             {payload.map((entry) => (
                 <div
@@ -60,14 +59,13 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
                     </span>
                 </div>
             ))}
-
         </div>
     );
 };
 
 export default function SchoolPerformanceChart() {
     return (
-        <div className="bg-[var(--bg-background)] rounded-2xl p-5 col-span-2">
+        <div className="bg-[var(--bg-background)] rounded-lg p-5 col-span-2">
             <div className="flex justify-between mb-5 max-md:flex-col max-md:gap-y-2">
                 <h2 className="font-bold text-lg text-[var(--color-accent2)]">
                     School Performance
@@ -91,7 +89,7 @@ export default function SchoolPerformanceChart() {
             <ResponsiveContainer width="100%" height={250}>
                 <AreaChart
                     data={lineData}
-                    margin={{ top: 0, right: 0, left: 0, bottom: 30 }}
+                    margin={{ top: 0, right: 0, left: -10, bottom: 10 }}
                 >
                     <CartesianGrid
                         vertical={true}
@@ -130,11 +128,15 @@ export default function SchoolPerformanceChart() {
                         fill="url(#colorThisWeek)"
                         strokeWidth={4}
                         dot={(props) => {
-                            const { cx, cy, payload } = props as { cx?: number; cy?: number; payload?: ChartData };
+                            const { cx, cy, payload } = props as {
+                                cx?: number;
+                                cy?: number;
+                                payload?: ChartData;
+                            };
                             if (payload?.name === "Mar") {
                                 return (
                                     <circle
-                                        key={`dot-thisWeek-${payload.name}`} // المفتاح الفريد
+                                        key={`dot-thisWeek-${payload.name}`}
                                         cx={cx}
                                         cy={cy}
                                         r={6}
@@ -144,7 +146,7 @@ export default function SchoolPerformanceChart() {
                                     />
                                 );
                             }
-                            return <g key={`empty-${payload?.name}`} />; // حتى العناصر الفاضية ليها key
+                            return <g key={`empty-${payload?.name}`} />;
                         }}
                     />
                     <Area

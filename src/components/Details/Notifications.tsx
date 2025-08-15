@@ -1,3 +1,21 @@
+const today = new Date();
+
+const formatted = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+});
+
+today.setDate(today.getDate() - 1);
+
+const formattedYesterday = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+});
+
 const Notifications = () => {
     return (
         <div className="bg-[var(--bg-background)] p-6 rounded-lg">
@@ -7,7 +25,7 @@ const Notifications = () => {
             <div className="pl-5 ml-2 flex flex-col gap-5 mb-7 border-l border-gray-300">
                 <div>
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Monday, June 31 2020
+                        {formatted}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <strong>Karen Hope </strong>
@@ -19,7 +37,7 @@ const Notifications = () => {
                 </div>
                 <div>
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Monday, June 31 2020
+                        {formatted}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <span className="text-[var(--color-red)] font-bold">
@@ -34,7 +52,7 @@ const Notifications = () => {
                 </div>
                 <div>
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Monday, June 31 2020
+                        {formatted}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <strong>Tony Soap </strong>
@@ -46,7 +64,7 @@ const Notifications = () => {
                 </div>
                 <div>
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Monday, June 31 2020
+                        {formatted}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <strong>Samantha William</strong> add 4 files on{" "}
@@ -57,7 +75,7 @@ const Notifications = () => {
                 </div>
                 <div>
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Monday, June 31 2020
+                        {formatted}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <strong>You</strong> have moved{" "}
@@ -74,7 +92,7 @@ const Notifications = () => {
             <div className="pl-5 ml-2 border-l border-gray-300">
                 <div className="mb-5">
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Sunday, June 30 2020
+                        {formattedYesterday}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <strong>Johnny Ahmad</strong> mentioned you at{" "}
@@ -85,7 +103,7 @@ const Notifications = () => {
                 </div>
                 <div>
                     <p className="text-[var(--color-accent1)] text-xs mb-2">
-                        Sunday, June 30 2020
+                        {formattedYesterday}
                     </p>
                     <p className="text-[var(--color-accent2)] max-md:text-sm">
                         <strong>Nadila Adja</strong> mentioned you at{" "}

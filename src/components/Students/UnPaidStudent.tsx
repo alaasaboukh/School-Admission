@@ -6,7 +6,7 @@ import { fetchStudents } from "@/redux/studentSlice";
 import { User2 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import Pagination from "./Pagination";
+import Pagination from "@/components/Nested/Pagination";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -43,19 +43,24 @@ const UnPaidStudent = () => {
             {loading ? (
                 <div className="flex items-center justify-center flex-col w-full h-[75vh]">
                     <div className="loading"></div>
-                    <p className="text-gray-500 text-xs mt-2">loading Students</p>
+                    <p className="text-[var(--color-accent2)] text-xs mt-2">
+                        loading Students
+                    </p>
                 </div>
             ) : (
                 <>
                     {currentStudent.map((student) => (
                         <div
                             key={student.id}
-                            className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1.5fr_1fr] items-center gap-4 mt-7 p-3 bg-[var(--bg-background)] rounded-lg max-md:shadow-sm"
+                            className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1.5fr_.5fr] items-center gap-4 mt-7 p-3 bg-[var(--bg-background)] rounded-lg max-md:shadow-md"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="relative w-15 h-15 ">
                                     {student.imageUrl && (
-                                        <Link href={`/students/${student.id}`} aria-label={`View profile of ${student.name}`}>
+                                        <Link
+                                            href={`/students/${student.id}`}
+                                            aria-label={`View profile of ${student.name}`}
+                                        >
                                             <Image
                                                 src={student.imageUrl}
                                                 alt={student.name}
@@ -90,18 +95,16 @@ const UnPaidStudent = () => {
                             </span>
                         </div>
                     ))}
-            <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalPage={totalPage}
-                data={unPaidStudents.length}
-            />
+                    <Pagination
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                        totalPage={totalPage}
+                        data={unPaidStudents.length}
+                    />
                 </>
             )}
-
         </div>
     );
 };
 
 export default React.memo(UnPaidStudent);
-

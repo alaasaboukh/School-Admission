@@ -1,9 +1,9 @@
-import TopComponent from "@/components/TopComponent";
-import ChatPage from "@/components/Chat";
+import TopComponent from "@/components/Nested/TopComponent";
+import ChatPage from "@/components/Chats/Chat";
 
 const Page = () => {
     return (
-        <div className="bg-[var(--color-secondary)] p-6 w-[100vw] max-lg:h-[125vh]">
+        <div className="bg-[var(--color-secondary)] p-6 w-full min-h-screen">
             <TopComponent text="Chat" />
             <ChatPage />
         </div>

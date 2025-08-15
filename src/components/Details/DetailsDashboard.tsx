@@ -20,7 +20,7 @@ const DetailsDashboard = () => {
     }, [dispatch, teachers]);
 
     return (
-        <div className="bg-[var(--bg-background)] p-5 mb-6 flex items-center justify-around flex-wrap max-md:gap-5 rounded-lg">
+        <div className="bg-[var(--bg-background)] p-6 mb-6 flex items-center justify-around flex-wrap max-md:gap-5 rounded-lg">
             <div className="flex items-center gap-5 max-md:flex-1">
                 <span className="bg-[var(--color-primary)] rounded-full p-3 text-white ">
                     <Users />

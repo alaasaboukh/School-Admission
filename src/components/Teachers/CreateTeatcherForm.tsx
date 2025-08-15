@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addteachers } from "@/redux/teatcherSlice";
+import { RootState } from "@/redux/store";
 
 const initialFormData = {
     name: "",
@@ -19,6 +20,10 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
     const dispatch = useAppDispatch();
     const [formData, setFormData] = useState(initialFormData);
     const [loading, setLoading] = useState(false);
+    const currentUser = useAppSelector(
+        (state: RootState) => state.auth.currentUser
+    );
+    const adminEmail = "alaasaboukh1@gmail.com";
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -35,7 +40,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
             if (formData.image) {
                 const formDataCloud = new FormData();
                 formDataCloud.append("file", formData.image);
-                formDataCloud.append("upload_preset", "unsigned_students");
+                formDataCloud.append("upload_preset", "unsigned_teachers");
 
                 const response = await fetch(
                     "https://api.cloudinary.com/v1_1/dqdwjumwk/image/upload",
@@ -53,10 +58,10 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
 
             const newTeacher = {
                 ...restData,
-                education: (restData.education),
+                education: restData.education,
                 phone: formData.phone.toString(),
                 imageUrl,
-                createdAt: new Date().toISOString(), // Add createdAt property
+                createdAt: new Date().toISOString(),
             };
 
             await dispatch(addteachers(newTeacher)).unwrap();
@@ -70,10 +75,14 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
         }
     };
 
+    if (currentUser?.email !== adminEmail) {
+        return <div>The page is available to admins only.</div>;
+    }
+
     return (
         <form
             onSubmit={handleSubmit}
-            className="bg-white p-6 rounded-xl shadow-md w-full max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className="bg-[var(--color-secondary)]  p-6 rounded-xl shadow-md w-full max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
             <input
                 name="name"
@@ -81,6 +90,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="email"
@@ -89,6 +99,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 onChange={handleChange}
                 type="email"
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="phone"
@@ -96,6 +107,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="job"
@@ -103,6 +115,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 value={formData.job}
                 onChange={handleChange}
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="education"
@@ -111,6 +124,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 onChange={handleChange}
                 type="number"
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="experites"
@@ -118,6 +132,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 value={formData.experites}
                 onChange={handleChange}
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="city"
@@ -125,6 +140,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 value={formData.city}
                 onChange={handleChange}
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 name="about"
@@ -132,6 +148,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                 value={formData.about}
                 onChange={handleChange}
                 required
+                className="border border-gray-300 p-2 rounded"
             />
             <input
                 type="file"
@@ -142,6 +159,7 @@ const CreateTeacherForm = ({ onClose }: { onClose?: () => void }) => {
                         image: e.target.files ? e.target.files[0] : null,
                     }))
                 }
+                className="border border-gray-300 p-2 rounded"
             />
             <button
                 type="submit"

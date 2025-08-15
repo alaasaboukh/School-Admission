@@ -10,7 +10,7 @@ const CurrentFoodMenu = () => {
     const { Foods } = useAppSelector((state: RootState) => state.food);
     useEffect(() => {
         dispatch(fetchFoods());
-    });
+    }, [dispatch]);
     return (
         <div>
             <h1 className="text-[var(--color-accent2)] font-bold tracking-wide text-lg mb-6">
@@ -20,20 +20,25 @@ const CurrentFoodMenu = () => {
                 {Foods.length === 0 ? (
                     <div className="flex items-center justify-center flex-col w-full">
                         <div className="loading"></div>
-                        <p className="text-gray-500 text-xs mt-2">loading Foods</p>
+                        <p className="text-[var(--color-accent2)] text-xs mt-2">
+                            loading Foods
+                        </p>
                     </div>
                 ) : (
                     <>
                         {Foods.slice(0, 3).map((food) => (
                             <div key={food.id}>
-                                <div className=" relative w-full h-36 max-lg:h-56">
-                                    <Image
-                                        src={food.imageUrl}
-                                        fill
-                                        alt=""
-                                        className="cursor-pointer hover:opacity-85 transition-all duration-500 rounded-lg object-cover"
-                                    />
+                                    <Link href={`food/${food.id}`}>
+                                <div className=" relative w-full h-36">
+                                        <Image
+                                            src={food.imageUrl}
+                                            fill
+                                            alt={food.name}
+                                            className="cursor-pointer hover:opacity-85 transition-all duration-500 rounded-lg object-cover"
+                                        />
+                                        
                                 </div>
+                                    </Link>
                                 <div className="mt-3">
                                     <h4 className="text-[var(--color-accent2)] font-semibold text-sm">
                                         {food.name}

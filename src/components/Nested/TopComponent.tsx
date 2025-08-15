@@ -22,7 +22,7 @@ const TopComponent = ({ text }: { text: string }) => {
                 </span>
 
                 <span
-                    className={`md:hidden transition-all duration-500 transform cursor-pointer ${Menuu ? "rotate-90" : "rotate-0"
+                    className={`md:hidden transition-all duration-500 transform text-[var(--foreground)] cursor-pointer ${Menuu ? "rotate-90" : "rotate-0"
                         }`}
                     onClick={() => dispatch(ToogleMenu())}
                 >
