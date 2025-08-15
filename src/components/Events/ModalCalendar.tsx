@@ -111,7 +111,7 @@ const ModalCalendar: React.FC<ModalCalendarProps> = ({
                             type="text"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                            className="w-full border border-gray-300 rounded text-[var(--color-accent1)] p-2 mb-5 placeholder:text-sm placeholder:text-[var(--color-accent1)] focus:outline-none"
+                            className="w-full border border-gray-300 rounded p-2 mb-5 placeholder:text-sm placeholder:text-[var(--color-accent1)] focus:outline-none"
                             placeholder="Work, Study, Occasion..."
                         />
                     </div>

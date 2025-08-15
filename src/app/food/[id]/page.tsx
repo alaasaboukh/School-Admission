@@ -37,7 +37,7 @@ const FoodDetails = () => {
     return (
         <div className="bg-[var(--color-secondary)] p-6 w-full min-h-screen">
             <TopComponent text={"Food Details"} />
-            <div className="bg-[var(--bg-background)] p-5 rounded-b-lg">
+            <div className="bg-[var(--bg-background)] p-5 rounded-lg">
                 <div className="flex items-start gap-8 max-md:flex-col">
                     <div className=" relative w-[450px] h-[200px] max-md:w-full">
                         {food.imageUrl && (
